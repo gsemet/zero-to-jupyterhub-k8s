@@ -60,9 +60,7 @@ spec:
           persistentVolumeClaim:
             claimName: hub-db-dir
         {{- end }}
-      {{- if .Values.rbac.enabled }}
-      serviceAccountName: hub
-      {{- end }}
+      serviceAccountName: {{ .Values.serviceAccounts.hub.name }}
       securityContext:
         runAsUser: {{ .Values.hub.uid }}
         fsGroup: {{ .Values.hub.fsGid }}

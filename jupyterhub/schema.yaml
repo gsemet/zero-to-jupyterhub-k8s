@@ -61,7 +61,7 @@ properties:
             type: string
             description: |
               The tag of the image to pull.
-              
+
               This is the value after the `:` in your full image name.
 
               ```
@@ -322,7 +322,7 @@ properties:
         type: object
         description: |
           Set Memory limits & guarantees that are enforced for each user.
-          
+
           See the [Kubernetes docs](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container)
           for more info.
         properties:
@@ -341,10 +341,10 @@ properties:
         description: |
           Creates an image pull secret for you and makes the user pods utilize
           it, allowing them to pull images from private image registries.
-          
+
           Using this configuration option automates the following steps that
           normally is required to pull from private image registries.
-          
+
           ```sh
           # you won't need to run this manually...
           kubectl create secret docker-registry singleuser-image-credentials \
@@ -400,7 +400,7 @@ properties:
 
               For gcr.io registries the password will be a big JSON blob for a
               Google cloud service account, it should look something like below.
-                            
+
               ```yaml
               password: |-
                 {
@@ -452,3 +452,56 @@ properties:
         description: |
           Deprecated and no longer does anything. Use the user-scheduler instead
           in order to accomplish a good packing of the user pods.
+
+
+  rbac:
+    type: object
+    properties:
+      create:
+        type: boolean
+        description: |
+            Create RBAC roles for a Kubenertes Cluster when RBAC is enabled.
+            Users who wish to manage RBAC access controls themselves can set this value to false and
+            would adapt the `serviceAccount` part of their configuration.
+
+
+  serviceAccounts:
+    type: object
+    description: |
+      Allow to create or set the service account to use for the puller, culler and https proxy.
+      Please note it does not impact the singleuser pod (see `singleuser.serviceAccountName`).
+    properties:
+      hub:
+        type: object
+        properties:
+          create:
+            type: bool
+          name:
+            type: string
+      imagePuller:
+        type: object
+        properties:
+          create:
+            type: bool
+          name:
+            type: string
+      autohttps:
+        type: object
+        properties:
+          create:
+            type: bool
+          name:
+            type: string
+      scheduling:
+        type: object
+        properties:
+          userScheduler:
+            type: object
+            properties:
+              create:
+                type: bool
+              name:
+                type: string
+          customServiceAccount:
+            type: string
+            description: |
