@@ -16,9 +16,7 @@ spec:
         {{- /* Changes here will cause the Deployment to restart the pods. */}}
         {{- include "jupyterhub.matchLabels" . | nindent 8 }}
     spec:
-      {{- if .Values.rbac.enabled }}
-      serviceAccountName: pod-culler
-      {{- end }}
+      serviceAccountName: {{ .Values.serviceAccounts.podCuller.name }}
       containers:
         - name: culler
           image: {{ .Values.cull.podCuller.image.name }}:{{ .Values.cull.podCuller.image.tag }}

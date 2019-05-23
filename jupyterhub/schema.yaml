@@ -22,7 +22,7 @@ properties:
 
           Changing this value will all user logins to be invalidated. If this secret leaks,
           *immediately* change it to something else, or user data can be compromised
-          
+
           ```sh
           # to generate a value, run
           openssl rand -hex 32
@@ -486,6 +486,13 @@ properties:
           name:
             type: string
       autohttps:
+        type: object
+        properties:
+          create:
+            type: bool
+          name:
+            type: string
+      podCuller:
         type: object
         properties:
           create:

@@ -74,6 +74,9 @@ serviceAccounts:
     autohttps:
       create: false
       name: 'autohttps'
+  podCuller:
+    create: false
+    name: 'pod-culler'
   scheduling:
     userScheduler:
       create: false
